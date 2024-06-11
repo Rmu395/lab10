@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestController {
-    @GetMapping("hello")
+    @GetMapping("hello")    //zadanie 1
     public String test() {
         return "Hello World";
     }
