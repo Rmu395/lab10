@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.springframework.web.bind.annotation.*;
+import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,6 @@ public class RectangleController {
     public List<Rectangle> getRectangles() {
         return rectangles;
     }
-    @GetMapping("rectangle/{id}")
-    public Rectangle getRectangle(@PathVariable Long id) {
-        return rectangles.get(id.intValue());
-    }
     @GetMapping("svgRectangles")    // zadanie 3.4
     public String svgRectangles() {
         String svgRectanglesCode = "<svg width=\"500\" height=\"500\" >\n";
@@ -39,10 +36,25 @@ public class RectangleController {
                             "\" height=\"" + rectangle.getHeight() +
                             "\" x=\"" + rectangle.getX() +
                             "\" y=\"" + rectangle.getY() +
+                            "\" fill=\"" + rectangle.getColor() +
                             "\" />\n";
         }
 
         svgRectanglesCode += "</svg>";
         return svgRectanglesCode;
+    }
+    @GetMapping("getRectangle/{id}")   // zadanie 5.1
+    public Rectangle getRectangle(@PathVariable Long id) {
+        return rectangles.get(id.intValue());
+    }
+    @PutMapping("putRectangle/{id}")    // zadanie 5.2
+    public List<Rectangle> putRectangle(@PathVariable int id, @RequestBody Rectangle rectangle) {
+        rectangles.set(id, rectangle);
+        return rectangles;
+    }
+    @DeleteMapping("deleteRectangle/{id}")
+    public List<Rectangle> deleteRectangle(@PathVariable int id) {
+        rectangles.remove(id);
+        return rectangles;
     }
 }
