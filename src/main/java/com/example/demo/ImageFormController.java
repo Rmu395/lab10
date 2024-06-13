@@ -18,17 +18,16 @@ public class ImageFormController {
     String image;
     int brightFactor = 0;
     @GetMapping("index")
-    public String index(Model model) {
-        model.addAttribute("brightness", brightFactor);
+    public String index() {
         return "index";
     }
     @GetMapping("image")
-    public String imageUpload(Model model) {
+    public String image(Model model) {
         model.addAttribute("image", image);
         return "image";
     }
     @PostMapping("upload")
-    public String imageUpload(@RequestParam("image") MultipartFile file) {
+    public String imageUpload(@RequestParam("image") MultipartFile file, @RequestParam("brightFactor") int brightFactor) {
         try {
             byte[] fileBytes = file.getBytes();
             if (brightFactor != 0) {
